@@ -67,14 +67,9 @@ class SoapClient extends \SoapClient implements Log\LoggerAwareInterface
      * @param int|null $oneWay
      * @uses parent::__doRequest
      * @return string The XML SOAP response.
-     * @throws Exception When PHP XSL extension is not enabled or WSDL file isn't readable.
      */
     public function __doRequest($request, $location, $action, $version, $oneWay = null)
     {
-        if (!extension_loaded('xsl')) {
-            throw new Exception('PHP XSL extension is not enabled.');
-        }
-
         $newRequest = $this->transformIncomingRequest($request);
 
         return parent::__doRequest($newRequest, $location, $action, $version, $oneWay);
